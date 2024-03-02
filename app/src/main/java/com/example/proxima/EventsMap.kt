@@ -36,11 +36,11 @@ class EventsMap : AppCompatActivity(), OnMapReadyCallback {
      * installed Google Play services and returned to the app.
      */
     override fun onMapReady(googleMap: GoogleMap) {
-        mMap = googleMap
 
         // Add a marker in Sydney and move the camera
-        val sydney = LatLng(-34.0, 151.0)
-        mMap.addMarker(MarkerOptions().position(sydney).title("Marker in Sydney"))
-        mMap.moveCamera(CameraUpdateFactory.newLatLng(sydney))
+        val sydney = LatLng(43.08527798116643, -77.67620189789763)
+        //googleMap.addMarker(MarkerOptions().position(sydney).title("Magic"))
+        googleMap.moveCamera(CameraUpdateFactory.zoomTo(18F))
+        googleMap.moveCamera(CameraUpdateFactory.newLatLng(sydney))
     }
 }
