@@ -1,5 +1,6 @@
 package com.example.proxima
 
+import android.content.Intent
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
@@ -11,7 +12,6 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import com.example.proxima.ui.theme.ProximaTheme
-import androidx.compose.ui.graphics.*
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -24,6 +24,9 @@ class MainActivity : ComponentActivity() {
                 }
             }
         }
+        val intent = Intent(this, EventsMap::class.java)
+        startActivity(intent)
+
     }
 }
 
