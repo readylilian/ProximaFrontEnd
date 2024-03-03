@@ -8,13 +8,16 @@ import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.SupportMapFragment
 import com.google.android.gms.maps.model.LatLng
-import com.google.android.gms.maps.model.MarkerOptions
-import androidx.core.content.ContextCompat
+import com.google.android.gms.maps.GoogleMap.*
 import com.google.android.gms.maps.model.*
+import android.widget.TextView
+import android.util.Log
+
+inline fun <reified T> T.logi(message: String) = Log.i(T::class.java.simpleName, message)
 class EventsMap : AppCompatActivity(), OnMapReadyCallback {
 
-    private lateinit var mMap: GoogleMap
-
+    private lateinit var tapTextView: TextView
+    private lateinit var map: GoogleMap
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -24,6 +27,9 @@ class EventsMap : AppCompatActivity(), OnMapReadyCallback {
         val mapFragment = supportFragmentManager
             .findFragmentById(R.id.map) as SupportMapFragment
         mapFragment.getMapAsync(this)
+        val view = mapFragment.view
+        view?.isClickable = true
+        tapTextView = findViewById(R.id.tap_text)
     }
 
     /**
@@ -38,9 +44,11 @@ class EventsMap : AppCompatActivity(), OnMapReadyCallback {
     override fun onMapReady(googleMap: GoogleMap) {
 
         // Add a marker in Sydney and move the camera
-        val sydney = LatLng(43.08527798116643, -77.67620189789763)
+        val rit = LatLng(43.08527798116643, -77.67620189789763)
         //googleMap.addMarker(MarkerOptions().position(sydney).title("Magic"))
         googleMap.moveCamera(CameraUpdateFactory.zoomTo(18F))
-        googleMap.moveCamera(CameraUpdateFactory.newLatLng(sydney))
+        googleMap.moveCamera(CameraUpdateFactory.newLatLng(rit))
+        map = googleMap
     }
+
 }
