@@ -4,19 +4,27 @@
     tools:ignore="HardcodedText">
 
     <item
-        android:id="@+id/friends"
-        android:title="My Friends" />
+        android:id="@+id/nav_map"
+        android:title="Map"/>
 
     <item
-        android:id="@+id/search"
-        android:title="Search" />
+        android:id="@+id/nav_friends"
+        android:title="My Friends"
+        android:icon="@drawable/ic_one"/>
 
     <item
-        android:id="@+id/settings"
-        android:title="Settings" />
+        android:id="@+id/nav_search"
+        android:title="Search"
+        android:icon="@drawable/ic_three"/>
+
+    <item
+        android:id="@+id/nav_settings"
+        android:title="Settings"
+        android:icon="@drawable/ic_setting"/>
 
     <item
         android:id="@+id/locations"
-        android:title="Locations" />
+        android:title="Locations"
+        android:icon="@drawable/ic_two"/>
 
 </menu>
