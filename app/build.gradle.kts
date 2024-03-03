@@ -71,5 +71,5 @@ dependencies {
     debugImplementation(libs.androidx.ui.tooling)
     debugImplementation(libs.androidx.ui.test.manifest)
     implementation("com.google.android.gms:play-services-maps:18.2.0")
-
+    implementation("com.google.android.material:material:1.3.0-alpha03")
 }
