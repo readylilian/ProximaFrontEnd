@@ -24,4 +24,6 @@
     <string name="attachment_summary_on">Automatically download attachments for incoming emails
     </string>
     <string name="attachment_summary_off">Only download attachments when manually requested</string>
+    <string name="map_id">bf20de75e267fe82</string>
+
 </resources>

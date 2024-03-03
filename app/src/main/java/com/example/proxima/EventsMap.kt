@@ -3,6 +3,7 @@ package com.example.proxima
 import android.Manifest
 import android.annotation.SuppressLint
 import android.content.pm.PackageManager
+import android.graphics.BitmapFactory
 import android.location.Location
 import android.os.Bundle
 import android.view.MenuItem
@@ -21,9 +22,18 @@ import com.google.android.gms.maps.GoogleMap.OnMyLocationButtonClickListener
 import com.google.android.gms.maps.GoogleMap.OnMyLocationClickListener
 import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.SupportMapFragment
+import com.google.android.gms.maps.model.BitmapDescriptorFactory
+import com.google.android.gms.maps.model.Circle
+import com.google.android.gms.maps.model.CircleOptions
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.material.navigation.NavigationView
+import com.google.android.gms.maps.model.MarkerOptions
 
+data class Place(
+    val name: String,
+    val latLng: LatLng,
+    val address: LatLng,
+)
 
 class EventsMap : AppCompatActivity(),
     OnMapReadyCallback,
@@ -31,11 +41,14 @@ class EventsMap : AppCompatActivity(),
     OnMyLocationButtonClickListener,
     OnMyLocationClickListener{
 
+    lateinit var circle : Circle
+    private var drawCircle = false
     private lateinit var map: GoogleMap
     private var permissionDenied = false
     lateinit var drawerLayout: DrawerLayout
     lateinit var actionBarDrawerToggle: ActionBarDrawerToggle
     private lateinit var nvDrawer: NavigationView
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -80,7 +93,6 @@ class EventsMap : AppCompatActivity(),
 
         when(menuItem.getItemId()) {
             R.id.nav_map -> setContentView(R.layout.activity_events_map)
-            R.id.nav_settings ->setContentView(R.layout.settings_activity)
         }
         // Set action bar title
         setTitle(menuItem.getTitle());
@@ -109,6 +121,19 @@ class EventsMap : AppCompatActivity(),
         googleMap.setOnMapClickListener { this }
         googleMap.setOnMapLongClickListener { this }
         enableMyLocation()
+        val bitmapDesc = BitmapDescriptorFactory.fromResource(R.drawable.ic_stars);
+        googleMap.addMarker(MarkerOptions()
+            .position(LatLng(43.085754463730495, -77.67641644392837))
+            .title("WiCHack Lunch!")
+            .icon(bitmapDesc))
+        googleMap.addMarker(MarkerOptions()
+            .position(LatLng(43.08584186669154, -77.67620510170399))
+            .title("WiCHack Judging")
+            .icon(bitmapDesc))
+        googleMap.addMarker(MarkerOptions()
+            .position(LatLng(43.085754463730495, -77.67620510170399))
+            .title("WiCHack Closing Ceremonies")
+            .icon(bitmapDesc))
 
     }
 
@@ -195,8 +220,23 @@ class EventsMap : AppCompatActivity(),
     }
 
     override fun onMyLocationClick(location: Location) {
-        Toast.makeText(this, "Current location:\n$location", Toast.LENGTH_LONG)
-            .show()
+        if(!drawCircle)
+        {
+            map.addCircle(
+                CircleOptions()
+                    .center(LatLng(location.latitude,location.longitude))
+                    .radius(50.0)
+                    .fillColor(ContextCompat.getColor(this, R.color.our_purple_translucent))
+                    .strokeColor(ContextCompat.getColor(this, R.color.our_purple))
+            )
+            drawCircle = true
+        }
+        else
+        {
+            circle.remove()
+            drawCircle = false
+        }
+
     }
 
     // [END maps_check_location_permission_result]
